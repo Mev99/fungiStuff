@@ -1,45 +1,101 @@
-alert('Bienvenido al calculador de precio de hongos!\nEscriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis (falopa)\n4.-Penicilina')
-let fungusSpecies = Number(prompt('Ingrese su hongo'))
-let fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
+// alert('Bienvenido al calculador de precio de hongos!\nEscriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis (falopa)\n4.-Penicilina')
+// let fungusSpecies = Number(prompt('Ingrese su hongo'))
+// let fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
 
-while (fungusSpecies == '' || isNaN(fungusSpecies) || (fungusAmmount == '') || isNaN(fungusAmmount) || fungusSpecies > 4) {
-    if (fungusSpecies == '' || isNaN(fungusSpecies) || fungusSpecies > 4) {
-        alert('Escriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis\n4.-Penicilina')
-        fungusSpecies = Number(prompt('Ingrese su hongo'))
-    } else if (fungusAmmount == '' || isNaN(fungusAmmount)) {
-        alert('por favor ingrese un número para indicar la cantidad de gramos que desea')
-        fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
+// while (fungusSpecies == '' || isNaN(fungusSpecies) || (fungusAmmount == '') || isNaN(fungusAmmount) || fungusSpecies > 5) {
+//     if (fungusSpecies == '' || isNaN(fungusSpecies) || fungusSpecies > 4) {
+//         alert('Escriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis\n4.-Penicilina')
+//         fungusSpecies = Number(prompt('Ingrese su hongo'))
+//     } else if (fungusSpecies === 5) {
+//         break
+//     } else if (fungusAmmount == '' || isNaN(fungusAmmount)) {
+//         alert('por favor ingrese un número para indicar la cantidad de gramos que desea')
+//         fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
+//     }
+// }
+
+// alert(fungusAmmount + 'g ' + naming('levadura', 'melena de león', 'psilocibine', 'penicilina') + '?')
+
+// function naming(name1, name2, name3, name4) {
+//     if (fungusSpecies === 1) {
+//         return name1
+//     } else if (fungusSpecies === 2) {
+//         return name2
+//     } else if (fungusSpecies === 3) {
+//         return name3
+//     } else if (fungusSpecies === 4) {
+//         return name4
+//     }
+// }
+
+// if (fungusSpecies === 1) {
+//     let levadura = fungusCost(fungusAmmount, 25)
+//     alert('El precio sería $' + levadura)
+// } else if (fungusSpecies === 2) {
+//     let melenaDeLeon = fungusCost(fungusAmmount, 1383)
+//     alert('El precio sería $' + melenaDeLeon)
+// } else if (fungusSpecies === 3) {
+//     let psilocibine = fungusCost(fungusAmmount, 2750)
+//     alert('El precio sería $' + psilocibine)
+// } else if (fungusSpecies === 4) {
+//     let penicilina = fungusCost(fungusAmmount, 35000)
+//     alert('El precio sería $' + penicilina)
+// }
+
+// function fungusCost(cantidad, tipo) {
+//     return cantidad * tipo
+// }
+
+
+// NOTA: 'fungi' es el plural de 'fungus'.
+const fungi = []
+class Fungus {
+    constructor(id, nombre, clasificacion, precioXGramo, unicelular, letal) {
+        this.id = id
+        this.nombre = nombre
+        this.clasificacion = clasificacion
+        this.precioXGramo = precioXGramo
+        this.unicelular = unicelular
+        this.letal = letal
+    }
+    averiguarPrecio() {
+        if (this.letal) {
+            return this.nombre + ' ' + this.precioXGramo + 'WARNING es letal! consulte la dosificacion'
+        } else {
+            return this.nombre + ' ' + this.precioXGramo
+        }
     }
 }
+function newFungus(id, nombre, clasificacion, precioXGramo, unicelular, letal) {
+    let fungus1 = new Fungus(id, nombre, clasificacion, precioXGramo, unicelular, letal)
+    fungi.push(fungus1)
+}
+newFungus(0, 'Levadura', 'Levaduras', 25, true, false)
+newFungus(1, 'Psilocibina', 'Basidiomycota', 3500, false, false)
+newFungus(2, 'Melena de león', 'Basidiomycota', 1383, false, false)
+newFungus(3, 'penicilina', 'deuteromycetes', 35000, true, false)
+newFungus(4, 'Amanita Muscaria', 'Basidiomycota', 5500, false, true)
 
-alert(fungusAmmount + 'g ' + naming('levadura', 'melena de león', 'psilocibine', 'penicilina') + '?')
+// alert(fungi[1].averiguarPrecio())
 
-function naming(name1, name2, name3, name4) {
-    if (fungusSpecies === 1) {
-        return name1
-    } else if (fungusSpecies === 2) {
-        return name2
-    } else if (fungusSpecies === 3) {
-        return name3
-    } else if (fungusSpecies === 4) {
-        return name4
-    }
+alert('Bienvenido a la pagina de fungi, estamos en la etapa Alpha!')
+let pregunta1 = 1
+
+function preguntaInicio() {
+    do {
+        pregunta1 = Number(prompt('Si desea ver nuestros hongos en stock y su informacion, escriba "1"\nDe lo contrario, si desea directamente comprar, escriba "2"'))
+    } while (isNaN(pregunta1) || pregunta1 < 1 || pregunta1 > 2)
 }
 
-if (fungusSpecies === 1) {
-    let levadura = fungusCost(fungusAmmount, 25)
-    alert('El precio sería $' + levadura)
-} else if (fungusSpecies === 2) {
-    let melenaDeLeon = fungusCost(fungusAmmount, 1383)
-    alert('El precio sería $' + melenaDeLeon)
-} else if (fungusSpecies === 3) {
-    let psilocibine = fungusCost(fungusAmmount, 2750)
-    alert('El precio sería $' + psilocibine)
-} else if (fungusSpecies === 4) {
-    let penicilina = fungusCost(fungusAmmount, 35000)
-    alert('El precio sería $' + penicilina)
-}
+preguntaInicio()
 
-function fungusCost(cantidad, tipo) {
-    return cantidad * tipo
+if (pregunta1 === 1) {
+    let showFungus = fungi.map(Element => {
+        return Element.id + '.- ' + Element.nombre + ' ' + Element.clasificacion + ' $' + Element.precioXGramo + ' x g \n'
+    } ).join('')
+        alert(showFungus)
+        console.log(fungi.averiguarPrecio())
+}else if (pregunta1 === 2){
+
+
 }
