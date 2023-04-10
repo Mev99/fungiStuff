@@ -48,54 +48,91 @@
 
 
 // NOTA: 'fungi' es el plural de 'fungus'.
+// DECLARACION DEL ARRAY Y CLASE.
 const fungi = []
 class Fungus {
-    constructor(id, nombre, clasificacion, precioXGramo, unicelular, letal) {
+    constructor(id, nombre, clasificacion, precioXGramo, unicelular, letal, stock) {
         this.id = id
         this.nombre = nombre
         this.clasificacion = clasificacion
         this.precioXGramo = precioXGramo
         this.unicelular = unicelular
         this.letal = letal
+        this.stock = stock
     }
-    averiguarPrecio() {
-        if (this.letal) {
-            return this.nombre + ' ' + this.precioXGramo + 'WARNING es letal! consulte la dosificacion'
-        } else {
-            return this.nombre + ' ' + this.precioXGramo
-        }
-    }
+    // averiguarPrecio() {
+    //     if (this.letal) {
+    //         return this.nombre + ' ' + this.precioXGramo + 'WARNING es letal! consulte la dosificacion'
+    //     } else {
+    //         return this.nombre + ' ' + this.precioXGramo
+    //     }
+    // }
 }
-function newFungus(id, nombre, clasificacion, precioXGramo, unicelular, letal) {
-    let fungus1 = new Fungus(id, nombre, clasificacion, precioXGramo, unicelular, letal)
+function newFungus(id, nombre, clasificacion, precioXGramo, unicelular, letal, stock) {
+    let fungus1 = new Fungus(id, nombre, clasificacion, precioXGramo, unicelular, letal, stock)
     fungi.push(fungus1)
 }
-newFungus(0, 'Levadura', 'Levaduras', 25, true, false)
-newFungus(1, 'Psilocibina', 'Basidiomycota', 3500, false, false)
-newFungus(2, 'Melena de león', 'Basidiomycota', 1383, false, false)
-newFungus(3, 'penicilina', 'deuteromycetes', 35000, true, false)
-newFungus(4, 'Amanita Muscaria', 'Basidiomycota', 5500, false, true)
+newFungus(1, 'Levadura', 'Levaduras', 25, true, false, 500)
+newFungus(2, 'Psilocibina', 'Basidiomycota', 3500, false, false, 500)
+newFungus(3, 'Melena de león', 'Basidiomycota', 1383, false, false, 500)
+newFungus(4, 'penicilina', 'deuteromycetes', 35000, true, false, 500)
+newFungus(5, 'Amanita Muscaria', 'Basidiomycota', 5500, false, true, 500)
 
-// alert(fungi[1].averiguarPrecio())
-
+// COMIENZA LA "INTERACCION" DEL USUARIO CON EL PROGRAMA
 alert('Bienvenido a la pagina de fungi, estamos en la etapa Alpha!')
 let pregunta1 = 1
+
+let showFungus = fungi.map(Element => {
+    return Element.id + '.- ' + Element.nombre + ', ' + Element.clasificacion + ' $' + Element.precioXGramo + ' x g \n'
+} ).join('')
 
 function preguntaInicio() {
     do {
         pregunta1 = Number(prompt('Si desea ver nuestros hongos en stock y su informacion, escriba "1"\nDe lo contrario, si desea directamente comprar, escriba "2"'))
     } while (isNaN(pregunta1) || pregunta1 < 1 || pregunta1 > 2)
+    if (pregunta1 === 1) {
+            alert(showFungus)
+    }else if (pregunta1 === 2){
+        alert('Usted entrara en la seccion de compras')
+    }
 }
 
-preguntaInicio()
-
-if (pregunta1 === 1) {
-    let showFungus = fungi.map(Element => {
-        return Element.id + '.- ' + Element.nombre + ' ' + Element.clasificacion + ' $' + Element.precioXGramo + ' x g \n'
-    } ).join('')
-        alert(showFungus)
-        console.log(fungi.averiguarPrecio())
-}else if (pregunta1 === 2){
+do {
+    preguntaInicio()
+} while (pregunta1 === 1)
 
 
+const mapeoPrecios = fungi.map(Element => {
+    return Element.id + '.- ' + Element.nombre + ' $' + Element.precioXGramo
+} ).join('\n')
+
+// let pregunta3 = 0
+// let pregunta4 = 0
+let pregunta2 = 1
+
+const carrito = {
+    item:[],
+    total: 0.00
 }
+
+function funcionCarrito() {
+do {
+    const busquedaDelHongo = fungi.find(Element => Element.id == pregunta2)
+    console.log(busquedaDelHongo)
+    if (pregunta2 <= 5 && pregunta2 >= 1) {
+        carrito.item.push(busquedaDelHongo)
+    } else {
+        alert('ingrese un numero correspondiente a un hongo por favor!')
+    }
+    
+    // pregunta3 = Number(prompt('Indique la cantidad que desea comprar (en gramos)'))
+
+
+    // pregunta4 = Number(prompt('Desea seguir comprando?\nUsted tiene en el carrito los siguientes productos\n' + 'Ingrese 8 si desea seguir comprando, de lo contrario ingrese 9 para realizar su pago'))
+} while (pregunta2 === 3)
+}
+
+do {
+    pregunta2 = Number(prompt('ingrese el numero del hongo que desea agregar al carrito (el precio es por gramo)\n' + mapeoPrecios ))
+    funcionCarrito()
+} while (pregunta2 < 6 || pregunta2 > 0)
