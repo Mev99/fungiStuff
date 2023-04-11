@@ -1,52 +1,3 @@
-// alert('Bienvenido al calculador de precio de hongos!\nEscriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis (falopa)\n4.-Penicilina')
-// let fungusSpecies = Number(prompt('Ingrese su hongo'))
-// let fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
-
-// while (fungusSpecies == '' || isNaN(fungusSpecies) || (fungusAmmount == '') || isNaN(fungusAmmount) || fungusSpecies > 5) {
-//     if (fungusSpecies == '' || isNaN(fungusSpecies) || fungusSpecies > 4) {
-//         alert('Escriba el número del hongo que desee comprar\n1.-Levadura\n2.-Melena de león\n3.-Psilocibine Cubensis\n4.-Penicilina')
-//         fungusSpecies = Number(prompt('Ingrese su hongo'))
-//     } else if (fungusSpecies === 5) {
-//         break
-//     } else if (fungusAmmount == '' || isNaN(fungusAmmount)) {
-//         alert('por favor ingrese un número para indicar la cantidad de gramos que desea')
-//         fungusAmmount = Number(prompt('ingrese la cantidad (gramos)'))
-//     }
-// }
-
-// alert(fungusAmmount + 'g ' + naming('levadura', 'melena de león', 'psilocibine', 'penicilina') + '?')
-
-// function naming(name1, name2, name3, name4) {
-//     if (fungusSpecies === 1) {
-//         return name1
-//     } else if (fungusSpecies === 2) {
-//         return name2
-//     } else if (fungusSpecies === 3) {
-//         return name3
-//     } else if (fungusSpecies === 4) {
-//         return name4
-//     }
-// }
-
-// if (fungusSpecies === 1) {
-//     let levadura = fungusCost(fungusAmmount, 25)
-//     alert('El precio sería $' + levadura)
-// } else if (fungusSpecies === 2) {
-//     let melenaDeLeon = fungusCost(fungusAmmount, 1383)
-//     alert('El precio sería $' + melenaDeLeon)
-// } else if (fungusSpecies === 3) {
-//     let psilocibine = fungusCost(fungusAmmount, 2750)
-//     alert('El precio sería $' + psilocibine)
-// } else if (fungusSpecies === 4) {
-//     let penicilina = fungusCost(fungusAmmount, 35000)
-//     alert('El precio sería $' + penicilina)
-// }
-
-// function fungusCost(cantidad, tipo) {
-//     return cantidad * tipo
-// }
-
-
 // NOTA: 'fungi' es el plural de 'fungus'.
 // DECLARACION DEL ARRAY Y CLASE.
 const fungi = []
@@ -60,13 +11,6 @@ class Fungus {
         this.letal = letal
         this.stock = stock
     }
-    // averiguarPrecio() {
-    //     if (this.letal) {
-    //         return this.nombre + ' ' + this.precioXGramo + 'WARNING es letal! consulte la dosificacion'
-    //     } else {
-    //         return this.nombre + ' ' + this.precioXGramo
-    //     }
-    // }
 }
 function newFungus(id, nombre, clasificacion, precioXGramo, unicelular, letal, stock) {
     let fungus1 = new Fungus(id, nombre, clasificacion, precioXGramo, unicelular, letal, stock)
@@ -93,7 +37,7 @@ function preguntaInicio() {
     if (pregunta1 === 1) {
             alert(showFungus)
     }else if (pregunta1 === 2){
-        alert('Usted entrara en la seccion de compras')
+        alert(`Usted entrara en la seccion de compras`)
     }
 }
 
@@ -103,11 +47,9 @@ do {
 
 
 const mapeoPrecios = fungi.map(Element => {
-    return Element.id + '.- ' + Element.nombre + ' $' + Element.precioXGramo
+    return `${Element.id} .- ${Element.nombre} $${Element.precioXGramo}`
 } ).join('\n')
 
-// let pregunta3 = 0
-// let pregunta4 = 0
 let pregunta2 = 1
 
 const carrito = {
@@ -116,20 +58,25 @@ const carrito = {
 }
 
 function funcionCarrito() {
-    pregunta2 = Number(prompt('ingrese el numero del hongo que desea agregar al carrito (el precio es por gramo)\n' + mapeoPrecios + '\nIngrese una letra cuando desee dejar de agregar articulos al carrito'))
+    pregunta2 = Number(prompt(`ingrese el numero del hongo que desea agregar al carrito (el precio es por gramo)\n${mapeoPrecios}\nIngrese una letra cuando desee dejar de agregar articulos al carrito`))
+
     const busquedaDelHongo = fungi.find(Element => Element.id == pregunta2)
     console.log(busquedaDelHongo)
     if (pregunta2 <= 5 && pregunta2 >= 1) {
         carrito.item.push(busquedaDelHongo)
     } else if(pregunta2 <= 5 || pregunta2 >= 1) {
-        alert('ingrese un numero correspondiente a un hongo por favor!')
+        alert(`ingrese un numero correspondiente a un hongo por favor!`)
     }
 }
 
 function funcionPrecio() {
-    const preguntaCantidad = Number(prompt('Cuanto quiere (en gramos) de' + carrito.item))
-    }
-
+    const preguntaCantidad = Number(prompt(`Cuántos gramos quiere de ${carrito.item[carrito.item.length - 1].nombre}?`))
+    const precioPorGramo = carrito.item[carrito.item.length - 1].precioXGramo
+    const precioTotal = preguntaCantidad * precioPorGramo
+    carrito.total += precioTotal
+    alert(`Se agregaron ${preguntaCantidad} gramos de ${carrito.item[carrito.item.length - 1].nombre} al carrito. Precio: $${precioTotal.toFixed(2)}\n Total en el carrito: $${carrito.total.toFixed(2)}`)
+  }
+  
 do {
     funcionCarrito()
     funcionPrecio()
@@ -137,3 +84,10 @@ do {
 
 console.log(carrito.item)   
 console.log(carrito.total)
+
+
+// function prueba() {
+//     const
+// }
+prueba()
+console.log(prueba)
