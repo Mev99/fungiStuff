@@ -116,23 +116,24 @@ const carrito = {
 }
 
 function funcionCarrito() {
-do {
+    pregunta2 = Number(prompt('ingrese el numero del hongo que desea agregar al carrito (el precio es por gramo)\n' + mapeoPrecios + '\nIngrese una letra cuando desee dejar de agregar articulos al carrito'))
     const busquedaDelHongo = fungi.find(Element => Element.id == pregunta2)
     console.log(busquedaDelHongo)
     if (pregunta2 <= 5 && pregunta2 >= 1) {
         carrito.item.push(busquedaDelHongo)
-    } else {
+    } else if(pregunta2 <= 5 || pregunta2 >= 1) {
         alert('ingrese un numero correspondiente a un hongo por favor!')
     }
-    
-    // pregunta3 = Number(prompt('Indique la cantidad que desea comprar (en gramos)'))
-
-
-    // pregunta4 = Number(prompt('Desea seguir comprando?\nUsted tiene en el carrito los siguientes productos\n' + 'Ingrese 8 si desea seguir comprando, de lo contrario ingrese 9 para realizar su pago'))
-} while (pregunta2 === 3)
 }
 
+function funcionPrecio() {
+    const preguntaCantidad = Number(prompt('Cuanto quiere (en gramos) de' + carrito.item))
+    }
+
 do {
-    pregunta2 = Number(prompt('ingrese el numero del hongo que desea agregar al carrito (el precio es por gramo)\n' + mapeoPrecios ))
     funcionCarrito()
+    funcionPrecio()
 } while (pregunta2 < 6 || pregunta2 > 0)
+
+console.log(carrito.item)   
+console.log(carrito.total)
