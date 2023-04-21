@@ -73,6 +73,9 @@ body section .row {
   transition: ease all 1.3s;
   background: rgba(0, 0, 0, 0.4);
 }
+.card .cover .item-a {
+  background-image: url(../img/carousel1.png);
+}
 .card .cover h1 {
   font-weight: 600;
   position: absolute;
@@ -125,6 +128,13 @@ body section .row {
 .card .card-back a:hover {
   background-color: white;
   color: #0b0f08;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 1030;
+  width: 100%;
 }
 
 /*# sourceMappingURL=styles.css.map */

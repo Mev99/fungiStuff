@@ -31,7 +31,9 @@ newFungus(5, "Amanita Muscaria", "Basidiomycota", 5500, false, true, 500, "./img
 //carrito (DOM)
 let capturarDiv = document.getElementById("card__div")
 
-let crearCards = fungi.forEach(fungus => {
+card(fungi)
+function card(arrayDeFungus){
+let crearCards = arrayDeFungus.forEach(fungus => {
     let crearDiv = document.createElement("div")
     crearDiv.className = "card__fungus"
     crearDiv.innerHTML = `
@@ -42,16 +44,25 @@ let crearCards = fungi.forEach(fungus => {
 					<h1>${fungus.nombre}</h1>
 					<span class="price">$${fungus.precioXGramo}/g</span>
 					<div class="card-back">
-						<a href="#">Añadir al carrito</a>
-						<a href="#">Detalles</a>
+						<a href="#" class="anadir__carrito">Añadir al carrito</a>
+						<a href="#" class="detalles">Detalles</a>
 					</div>
 				</div>
 			</div>
 		</div>`
 
         document.body.append(crearDiv)
-        // capturarDiv.append(crearDiv)
         
-    console.dir(crearDiv.innerHTML)
+        console.dir(crearDiv.innerHTML)
+        
+    })
+}
+
+let searchBar = document.getElementsByClassName("form-control")
+let searchBtn = document.getElementsByClassName("btn")
+
+searchBar.onchange = renderizarFungus
+
+function renderizarFungus() {
     
-})
+}

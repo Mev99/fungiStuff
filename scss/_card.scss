@@ -78,7 +78,9 @@ body{
 			transition: ease all 1.3s;
 			background: rgba(0,0,0,.4);
 		}
-		
+		.item-a{
+			background-image: url(../img/carousel1.png);
+		}
 		h1{
 			font-weight: 600;
 			position: absolute;
