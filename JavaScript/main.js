@@ -20,49 +20,83 @@ function newFungus(id, nombre, clasificacion, precioXGramo, unicelular, letal, s
     fungi.push(fungus1)
 }
 
-newFungus(1, "Levadura", "Levaduras", 25, true, false, 500, "./img/levadura.png")
-newFungus(2, "Psilocibina", "Basidiomycota", 3500, false, false, 500, "./img/mazatapec.png")
-newFungus(3, "Melena de león", "Basidiomycota", 1383, false, false, 500, "./img/melenaDeLeon.png")
-newFungus(4, "penicilina", "deuteromycetes", 35000, true, false, 500, "./img/penicilina.png")
-newFungus(5, "Amanita Muscaria", "Basidiomycota", 5500, false, true, 500, "./img/amanitaMuscaria.png")
+newFungus(1, "Levadura", "Levaduras", 25, true, false, 500, "item-a")
+newFungus(2, "Psilocibina", "Basidiomycota", 3500, false, false, 500, "item-b")
+newFungus(3, "Melena de león", "Basidiomycota", 1383, false, false, 500, "item-c")
+newFungus(4, "penicilina", "deuteromycetes", 35000, true, false, 500, "item-d")
+newFungus(5, "Amanita Muscaria", "Basidiomycota", 5500, false, true, 500, "item-e")
 
-// COMIENZA LA "INTERACCION" DEL USUARIO CON EL PROGRAMA
 
-//carrito (DOM)
+//RENDER DE CARDS Y CARRITO
+
+let carrito = []
+let crearCarritoDiv = document.createElement("div")
+crearCarritoDiv.id = "carrito__div"
+let capturarCarrito = document.getElementById("carrito__div")
+
+
 let capturarDiv = document.getElementById("card__div")
 
-card(fungi)
-function card(arrayDeFungus){
-let crearCards = arrayDeFungus.forEach(fungus => {
-    let crearDiv = document.createElement("div")
-    crearDiv.className = "card__fungus"
-    crearDiv.innerHTML = `
-	<div class="row">
-		<div class="col-md-4 col-sm-6 col-xs-12">
-			<div class="card">
-				<div class="cover item-a">
-					<h1>${fungus.nombre}</h1>
-					<span class="price">$${fungus.precioXGramo}/g</span>
-					<div class="card-back">
-						<a href="#" class="anadir__carrito">Añadir al carrito</a>
-						<a href="#" class="detalles">Detalles</a>
-					</div>
-				</div>
-			</div>
-		</div>`
+renderCard(fungi, capturarDiv)
 
-        document.body.append(crearDiv)
-        
-        console.dir(crearDiv.innerHTML)
-        
+function renderCard(arrayDeFungus, contenedor) {
+    contenedor.innerHTML = ""
+    crearCards = arrayDeFungus.forEach(fungus => {
+        let crearDiv = document.createElement("div")
+        crearDiv.className = "card__fungus"
+        crearDiv.innerHTML = `
+	<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="card">
+    <div class="cover ${fungus.img}">
+    <h1>${fungus.nombre}</h1>
+    <span class="price">$${fungus.precioXGramo}/g</span>
+    <div class="card-back">
+    <a href="#" id="${fungus.id}" class="anadir__carrito">Añadir al carrito</a>
+    <a href="#" id="" class="detalles">Detalles</a>
+    </div>
+    </div>
+    </div>
+    </div>`
+        contenedor.append(crearDiv)
+
+        let boton = document.getElementById(`${fungus.id}`)
+        boton.onclick = agregarProductoAlCarrito
     })
 }
 
-let searchBar = document.getElementsByClassName("form-control")
-let searchBtn = document.getElementsByClassName("btn")
+//Busqueda de articulos (render con filter)
+let searchInput = document.getElementById("search__input")
+let searchBtn = document.getElementById("search__btn")
+let searchForm = document.getElementById("search__form")
+searchBtn.onclick = filtrarCard
 
-searchBar.onchange = renderizarFungus
-
-function renderizarFungus() {
-    
+function filtrarCard(e) {
+    // if (searchInput.value == "") {
+    //     e.preventDefault()
+    //     let searchError = searchInput.cloneNode(true)
+    //     searchError.id = "search__problemo"
+    //     searchInput.searchForm.replaceChild(searchError, searchInput)
+    // } else
+    e.preventDefault()
+    let filtrar = fungi.filter(Element => Element.nombre.toLowerCase().includes(searchInput.value.toLowerCase()))
+    renderCard(filtrar, capturarDiv)
 }
+
+//carrito
+function agregarProductoAlCarrito(e) {
+    e.preventDefault()
+    let buscaProductoID = fungi.find(fungus => fungus.id == e.target.id)
+if (carrito.some(fungus => fungus.id == buscaProductoID.id)) {
+    let pos = carrito.findIndex(fungus => fungus.id == buscaProductoID.id)
+    carrito[pos].gramos++
+    carrito[pos].subtotal = carrito[pos].precioXGramo * carrito[pos].gramos
+} else {
+    carrito.push({
+        id: buscaProductoID.id,
+        nombre: buscaProductoID.nombre,
+        precioXGramo: buscaProductoID.precioXGramo,
+        gramos: 1,
+        subtotal: buscaProductoID.precioXGramo
+    })
+}}

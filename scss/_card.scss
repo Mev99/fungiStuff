@@ -15,7 +15,6 @@ body{
 		}
 	}
 }
-
 .card{
 	position: relative;
 	height: 400px;
@@ -78,8 +77,20 @@ body{
 			transition: ease all 1.3s;
 			background: rgba(0,0,0,.4);
 		}
-		.item-a{
-			background-image: url(../img/carousel1.png);
+		&.item-a{
+			background-image: url('../img/levadura.png');
+		}
+		&.item-b{
+			background-image: url('../img/mazatapec.png');
+		}
+		&.item-c{
+			background-image: url('../img/melenaDeLeon.png');
+		}
+		&.item-d{
+			background-image: url('../img/penicilina.png');
+		}
+		&.item-e{
+			background-image: url('../img/amanitaMuscaria.png');
 		}
 		h1{
 			font-weight: 600;
@@ -136,3 +147,7 @@ body{
 		}
 	}
 }
+
+// #card__div{
+// 	flex-wrap: nowrap;
+// }

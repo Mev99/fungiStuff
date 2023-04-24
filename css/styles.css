@@ -73,8 +73,20 @@ body section .row {
   transition: ease all 1.3s;
   background: rgba(0, 0, 0, 0.4);
 }
-.card .cover .item-a {
-  background-image: url(../img/carousel1.png);
+.card .cover.item-a {
+  background-image: url("../img/levadura.png");
+}
+.card .cover.item-b {
+  background-image: url("../img/mazatapec.png");
+}
+.card .cover.item-c {
+  background-image: url("../img/melenaDeLeon.png");
+}
+.card .cover.item-d {
+  background-image: url("../img/penicilina.png");
+}
+.card .cover.item-e {
+  background-image: url("../img/amanitaMuscaria.png");
 }
 .card .cover h1 {
   font-weight: 600;
@@ -135,6 +147,10 @@ body section .row {
   top: 0;
   z-index: 1030;
   width: 100%;
+}
+
+#search__problemo {
+  outline: solid red;
 }
 
 /*# sourceMappingURL=styles.css.map */
