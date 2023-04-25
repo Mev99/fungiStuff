@@ -31,10 +31,12 @@ newFungus(5, "Amanita Muscaria", "Basidiomycota", 5500, false, true, 500, "item-
 
 let carrito = []
 let capturarCarrito = document.getElementById("carrito__div")
+if (localStorage.getItem("carrito")){
+    carrito = JSON.parse(localStorage.getItem("carrito"))
+}
 
 
 let capturarDiv = document.getElementById("card__div")
-
 renderCard(fungi, capturarDiv)
 
 function renderCard(arrayDeFungus, contenedor) {
@@ -98,12 +100,13 @@ if (carrito.some(fungus => fungus.id == buscaProductoID.id)) {
         subtotal: buscaProductoID.precioXGramo
         })
     }
+    localStorage.setItem("carrito", JSON.stringify(carrito))
     renderizarCarrito(carrito)
 }
 
 function renderizarCarrito(array){
     capturarCarrito.innerHTML = ""
     array.forEach(Element => {
-        capturarCarrito.innerHTML += `${Element.nombre}`
+        capturarCarrito.innerHTML += `${Element.nombre}, `
     })
 }
