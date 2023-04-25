@@ -30,8 +30,6 @@ newFungus(5, "Amanita Muscaria", "Basidiomycota", 5500, false, true, 500, "item-
 //RENDER DE CARDS Y CARRITO
 
 let carrito = []
-let crearCarritoDiv = document.createElement("div")
-crearCarritoDiv.id = "carrito__div"
 let capturarCarrito = document.getElementById("carrito__div")
 
 
@@ -98,5 +96,14 @@ if (carrito.some(fungus => fungus.id == buscaProductoID.id)) {
         precioXGramo: buscaProductoID.precioXGramo,
         gramos: 1,
         subtotal: buscaProductoID.precioXGramo
+        })
+    }
+    renderizarCarrito(carrito)
+}
+
+function renderizarCarrito(array){
+    capturarCarrito.innerHTML = ""
+    array.forEach(Element => {
+        capturarCarrito.innerHTML += `${Element.nombre}`
     })
-}}
+}
