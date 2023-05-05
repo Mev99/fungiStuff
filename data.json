@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "nombre": "Levadura",
+        "nombreBusqueda": "Levaduras",
+        "clasificacion": "Levaduras",
+        "precio": 50,
+        "unicelular": true,
+        "letal": false,
+        "stock": 15,
+        "img": "item-a",
+        "imgSrc": "../img/levadura.png"
+    },
+    
+    {
+        "id": 2,
+        "nombre": "Mazatapec",
+        "nombreBusqueda": "mazatapec psilocibina psilocibine alucinogeno",
+        "clasificacion": "basidiomycota",
+        "precio": 3500,
+        "unicelular": false,
+        "letal": false,
+        "stock": 500,
+        "img": "item-b",
+        "imgSrc": "../img/mazatapec.png"
+    },
+
+    {
+        "id": 3,
+        "nombre": "Melena de León",
+        "nombreBusqueda": "melena de leon lions mane lion's mane",
+        "clasificacion": "Basidiomycota",
+        "precio": 1385,
+        "unicelular": false,
+        "letal": false,
+        "stock": 5,
+        "img": "item-c",
+        "imgSrc": "../img/melenaDeLeon.png"
+    },
+
+    {
+        "id": 4,
+        "nombre": "Penicilina",
+        "nombreBusqueda": "medical medicina penicilina",
+        "clasificacion": "deuteromycetes",
+        "precio": 360000,
+        "unicelular": true,
+        "letal": false,
+        "stock": 1,
+        "img": "item-d",
+        "imgSrc": "../img/penicilina.png"
+    },
+
+    {
+        "id": 5,
+        "nombre": "Amanita Muscaria",
+        "nombreBusqueda": "amanita muscaria psilocibina psilocibine alucinogeno",
+        "clasificacion": "Basidiomycota",
+        "precio": 5500,
+        "unicelular": false,
+        "letal": true,
+        "stock": 3,
+        "img": "item-e",
+        "imgSrc": "../img/amanitaMuscaria.png"
+    }
+]

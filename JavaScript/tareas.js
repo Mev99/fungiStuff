@@ -1,44 +1,17 @@
-// NOTA: "fungi" es el plural de "fungus".
-// DECLARACION DEL ARRAY Y CLASE.
-const fungi = []
-
-class Fungus {
-    constructor(id, nombre, nombreBusqueda, clasificacion, precio, unicelular, letal, stock, img, imgSrc) {
-        this.id = id
-        this.nombre = nombre
-        this.nombreBusqueda = nombreBusqueda
-        this.clasificacion = clasificacion
-        this.precio = precio
-        this.unicelular = unicelular
-        this.letal = letal
-        this.stock = stock
-        this.img = img
-        this.imgSrc = imgSrc
-    }
-}
-
-function newFungus(id, nombre, nombreBusqueda, clasificacion, precio, unicelular, letal, stock, img, imgSrc) {
-    let fungus1 = new Fungus(id, nombre, nombreBusqueda, clasificacion, precio, unicelular, letal, stock, img, imgSrc)
-    fungi.push(fungus1)
-}
-
-newFungus(1, "Levadura", "Levaduras", "levaduras", 50, true, false, 500, "item-a", "../img/levadura.png")
-newFungus(2, "Mazatapec", "mazatapec psilocibina psilocibine alucinogeno", "Basidiomycota", 3500, false, false, 500, "item-b", "../img/mazatapec.png")
-newFungus(3, "Melena de león", "melena de leon lions mane lion's mane", "Basidiomycota", 1383, false, false, 500, "item-c", "../img/melenaDeLeon.png")
-newFungus(4, "Penicilina", "medicinal medicina penicilina", "deuteromycetes", 35000, true, false, 500, "item-d", "../img/penicilina.png")
-newFungus(5, "Amanita Muscaria", "amanita muscaria psilocibina psilocibine alucinogeno", "Basidiomycota", 5500, false, true, 500, "item-e", "../img/amanitaMuscaria.png")
-
+//FETCH
+const url = "../data.json"
+fetch(url)
+.then(res => res.json())
+.then(fungi => renderCard(fungi))
 
 //RENDER DE CARDS Y CARRITO
 let carrito = JSON.parse(localStorage.getItem("carrito")) || []
 
-
 // RENDER CARDS
 let capturarDiv = document.getElementById("card__div")
-renderCard(fungi, capturarDiv)
 
-function renderCard(arrayDeFungus, contenedor) {
-    contenedor.innerHTML = ""
+function renderCard(arrayDeFungus) {
+    capturarDiv.innerHTML = ""
     crearCards = arrayDeFungus.forEach(fungus => {
         let crearDiv = document.createElement("div")
         crearDiv.className = "card__fungus"
@@ -56,16 +29,45 @@ function renderCard(arrayDeFungus, contenedor) {
     </div>
     </div>
     </div>`
-        contenedor.append(crearDiv)
-        let carritoBoton = document.getElementById(`${fungus.id}`)
-        carritoBoton.onclick = aniadirAlCarrito
+        capturarDiv.append(crearDiv)
     })
+
+    let carritoBoton = document.querySelectorAll(".anadir__carrito")
+    carritoBoton.forEach(Element => {
+        Element.addEventListener("click", (e)=> aniadirAlCarrito(e, arrayDeFungus))
+    })
+
+}       
+
+//BUSCAR ARTICULOS (render con filter)
+let searchInput = document.getElementById("search__input")
+let searchBtn = document.getElementById("search__btn")
+let searchForm = document.getElementById("search__form")
+searchBtn.onclick = filtrarCard
+         
+const accentMap = {
+  'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'
+}
+    function accent_fold(s) {
+        if (!s) { return '' }
+        let ret = ''
+        for (let i = 0; i < s.length; i++) {
+            ret += accentMap[s.charAt(i)] || s.charAt(i);
+    }
+    return ret
+}
+//UNDER DEVELOPMENT
+function filtrarCard(e) {
+        e.preventDefault()
+        let filtroAcento = accent_fold(searchInput.value.toLowerCase())
+        let filtrar = fungi.filter(Element => Element.nombreBusqueda.toLowerCase().includes(filtroAcento))
+        renderCard(filtrar, capturarDiv)
 }
 
 //ADD TO CART N MORE
-function aniadirAlCarrito(e) {
+function aniadirAlCarrito(e, array) {
     e.preventDefault()
-    let localizarFungus = fungi.find(Element => Element.id == e.target.id)
+    let localizarFungus = array.find(Element => Element.id == e.target.id)
     if (carrito.some(Element => Element.id == localizarFungus.id)) {
         let repetido = carrito.findIndex(Element => Element.id == localizarFungus.id)
         carrito[repetido].kg++
@@ -195,37 +197,4 @@ function mostrarCarrito() {
     } else {
         carritoDiv.classList.add("hidden")
     }
-}
-
-
-
-//BUSCAR ARTICULOS (render con filter)
-let searchInput = document.getElementById("search__input")
-let searchBtn = document.getElementById("search__btn")
-let searchForm = document.getElementById("search__form")
-searchBtn.onclick = filtrarCard
-         
-const accentMap = {
-  'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'
-}
-    function accent_fold(s) {
-        if (!s) { return '' }
-        let ret = ''
-        for (let i = 0; i < s.length; i++) {
-            ret += accentMap[s.charAt(i)] || s.charAt(i);
-    }
-    return ret
-}  
-
-function filtrarCard(e) {
-      // if (searchInput.value == "") {
-      //     e.preventDefault()
-        //     le t searchError = searchInput.cloneNode(true)
-        //     searchError.id = "search__problemo"
-        //     searchInput.searchForm.replaceChild(searchError, searchInput)
-    // } else
-        e.preventDefault()
-        let filtroAcento = accent_fold(searchInput.value.toLowerCase())
-        let filtrar = fungi.filter(Element => Element.nombreBusqueda.toLowerCase().includes(filtroAcento))
-        renderCard(filtrar, capturarDiv)
 }
