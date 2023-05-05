@@ -85,10 +85,24 @@ function aniadirAlCarrito(e) {
     actualizarCarrito()
 }
 
+// TOASTIFY CARRITO
+function toast() {
+    Toastify({
+        text: "Se actualizo el carrito",
+        duration: 3000,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right",
+        style: {
+            background: "linear-gradient(to right, #002400, #58641D)",
+          }
+        }).showToast();
+}
+
 //RENDER CARRITO Y PRECIO
-let body = document.getElementById("tbody")
+let tbody = document.getElementById("tbody")
 
 function actualizarCarrito() {
+    toast()
     renderCarrito(carrito)
     renderSubtotal(carrito)
 
@@ -97,9 +111,9 @@ function actualizarCarrito() {
 }
 
 function renderCarrito(array) {
-    body.innerHTML = ""
+    tbody.innerHTML = ""
     array.forEach(Element => {
-        body.innerHTML += `<tr>
+        tbody.innerHTML += `<tr>
     <td><img src="${Element.imgSrc}" class="img-cart"></td>
     <td><strong>${Element.nombre}</strong></td>
     <td>
@@ -125,8 +139,39 @@ array.forEach(Element => {
 })
 precioTotal.innerHTML = `$${plataAPagar}`
 }
-
 actualizarCarrito()
+
+// BOTON "PAGAR"
+let pagar = document.getElementById("boton__pagar")
+pagar.onclick = pago
+
+function pago() {
+    if (carrito.length) {
+        carrito = []
+        actualizarCarrito()
+        localStorage.clear()
+        tirarAlerta("Gracias por su compra. Macanudo,", "#716add", "#F1E9DA", "../img/giphy.gif")
+    } else
+    tirarAlerta("Usted no tiene ningún artículo en el carrito. Comprame algo loco por favor te lo pido, mirame, estoy de rodillas", "#F1E9DA", "#570000")
+}
+
+//funcion SWEET ALERT
+function tirarAlerta(msj, color, background, backdrop) {
+    Swal.fire({
+        title: `${msj}`,
+        width: 600,
+        padding: `3em`,
+        color: `${color}`,
+        background: `${background}`,
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url(${backdrop})
+          left top
+          no-repeat
+        `
+      })
+}
+
 // // ELIMINAR ARTICULO DEL CARRITO
 // let trash = document.getElementById("trash__can")
 
@@ -140,7 +185,9 @@ actualizarCarrito()
 // MOSTRAR Y OCULTAR CARRITO
 let botonCarrito = document.getElementById("boton__carrito")
 let carritoDiv = document.getElementById("carrito__div")
+let continuarComprando = document.getElementById("boton__continuar")
 botonCarrito.onclick = mostrarCarrito
+continuarComprando.onclick = mostrarCarrito
 
 function mostrarCarrito() {
     if (carritoDiv.classList.contains("hidden")) {
@@ -149,6 +196,8 @@ function mostrarCarrito() {
         carritoDiv.classList.add("hidden")
     }
 }
+
+
 
 //BUSCAR ARTICULOS (render con filter)
 let searchInput = document.getElementById("search__input")
