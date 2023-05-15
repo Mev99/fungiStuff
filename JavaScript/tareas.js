@@ -1,8 +1,9 @@
 //FETCH
 const url = "../data.json"
 fetch(url)
-.then(res => res.json())
-.then(fungi => renderCard(fungi))
+    .then(res => res.json())
+    .then(fungi => renderCard(fungi))
+    .catch(error => console.log("ERROR AL HACER FETCH O EN LA RESOLUCION DE LAS PROMESAS"))
 
 //RENDER DE CARDS Y CARRITO
 let carrito = JSON.parse(localStorage.getItem("carrito")) || []
