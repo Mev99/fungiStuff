@@ -35,34 +35,34 @@ function renderCard(arrayDeFungus) {
 
     let carritoBoton = document.querySelectorAll(".anadir__carrito")
     carritoBoton.forEach(Element => {
-        Element.addEventListener("click", (e)=> aniadirAlCarrito(e, arrayDeFungus))
+        Element.addEventListener("click", (e) => aniadirAlCarrito(e, arrayDeFungus))
     })
 
-}       
+}
 
 //BUSCAR ARTICULOS (render con filter)
 let searchInput = document.getElementById("search__input")
 let searchBtn = document.getElementById("search__btn")
 let searchForm = document.getElementById("search__form")
 searchBtn.onclick = filtrarCard
-         
+
 const accentMap = {
-  'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'
+    'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u'
 }
-    function accent_fold(s) {
-        if (!s) { return '' }
-        let ret = ''
-        for (let i = 0; i < s.length; i++) {
-            ret += accentMap[s.charAt(i)] || s.charAt(i);
+function accent_fold(s) {
+    if (!s) { return '' }
+    let ret = ''
+    for (let i = 0; i < s.length; i++) {
+        ret += accentMap[s.charAt(i)] || s.charAt(i);
     }
     return ret
 }
 //UNDER DEVELOPMENT
 function filtrarCard(e) {
-        e.preventDefault()
-        let filtroAcento = accent_fold(searchInput.value.toLowerCase())
-        let filtrar = fungi.filter(Element => Element.nombreBusqueda.toLowerCase().includes(filtroAcento))
-        renderCard(filtrar, capturarDiv)
+    e.preventDefault()
+    let filtroAcento = accent_fold(searchInput.value.toLowerCase())
+    let filtrar = fungi.filter(Element => Element.nombreBusqueda.toLowerCase().includes(filtroAcento))
+    renderCard(filtrar, capturarDiv)
 }
 
 //ADD TO CART N MORE
@@ -97,8 +97,8 @@ function toast() {
         position: "right",
         style: {
             background: "linear-gradient(to right, #002400, #58641D)",
-          }
-        }).showToast();
+        }
+    }).showToast();
 }
 
 //RENDER CARRITO Y PRECIO
@@ -129,7 +129,7 @@ function renderCarrito(array) {
     <td>${Element.precio}</td>
     <td>${Element.subtotal}</td>
     </tr>`
-})
+    })
 }
 
 // RENDER PRECIO
@@ -137,10 +137,10 @@ let precioTotal = document.getElementById("total__price")
 function renderSubtotal(array) {
     precioTotal.innerHTML = ""
     let plataAPagar = 0
-array.forEach(Element => {
-    plataAPagar += Element.kg * Element.precio
-})
-precioTotal.innerHTML = `$${plataAPagar}`
+    array.forEach(Element => {
+        plataAPagar += Element.kg * Element.precio
+    })
+    precioTotal.innerHTML = `$${plataAPagar}`
 }
 actualizarCarrito()
 
@@ -155,7 +155,7 @@ function pago() {
         localStorage.clear()
         tirarAlerta("Gracias por su compra. Macanudo,", "#716add", "#F1E9DA", "../img/giphy.gif")
     } else
-    tirarAlerta("Usted no tiene ningún artículo en el carrito. Comprame algo loco por favor te lo pido, mirame, estoy de rodillas", "#F1E9DA", "#570000")
+        tirarAlerta("Usted no tiene ningún artículo en el carrito. Comprame algo loco por favor te lo pido, mirame, estoy de rodillas", "#F1E9DA", "#570000")
 }
 
 //funcion SWEET ALERT
@@ -172,7 +172,7 @@ function tirarAlerta(msj, color, background, backdrop) {
           left top
           no-repeat
         `
-      })
+    })
 }
 
 // // ELIMINAR ARTICULO DEL CARRITO
