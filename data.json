@@ -20,7 +20,7 @@
         "precio": 3500,
         "unicelular": false,
         "letal": false,
-        "stock": 500,
+        "stock": 501,
         "img": "item-b",
         "imgSrc": "../img/mazatapec.png"
     },
